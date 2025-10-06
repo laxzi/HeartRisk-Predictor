@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Login - HeartRisk Predictor{% endblock %}
+{% block content %}
+
+<section id="login-section"
+    style="
+        max-width: 1000px;
+        margin: 50px auto;
+        text-align: center;
+     ">
+  <h2>Login</h2>
+  <form method="POST">
+    <div class="form-row">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+      </div>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HeartRisk Predictor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; }
+    nav { 
+	  background: #003060;
+          color: white; 
+	  padding: 10px 20px; 
+	  text-align: center; 
+        }
+    nav a { color: white; margin-right: 100px; text-decoration: none; font-weight: bold; padding:40px,20px; }
+    nav a:hover { text-decoration: underline; }
+    .flash{
+	 max-width: 600px;
+          margin: 20px auto;
+          padding: 10px 15px;
+          border-radius: 5px;
+          text-align: center;
+         }
+        .flash.success { background: #d4edda; color: #155724; }
+        .flash.danger { background: #f8d7da; color: #721c24; }
+        .flash.warning { background: #fff3cd; color: #856404; }
+   
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color:#fff;
+      background: linear-gradient(90deg,#0E86D4,#003060);
+      padding:40px 20px;
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    /* Sections */
+    section {
+      max-width:100%;
+      min-height: 100vh;       /* full screen height */
+      padding: 50px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+     
+    }
+
+   
+    section:nth-child(odd) { background: #68BBE3; }
+
+    /* Intro */
+    #intro {
+   background: url("/static/intro.jpeg") no-repeat center center;
+      background-size:cover;
+      color:#003060;
+      max-width:100%;
+      min-height:100vh;
+      font-size:1.4em;
+      background-color:#e6f2ff;
+      text-align:left; 
+      font-family:Times New Roman
+      margin: 0 ;
+      justify-content: center;  
+      align-items: flex-start; 
+      padding-left: 80px;  
+     
+    }
+
+    /* Form */
+    form {
+s
+      max-width: 100%;
+      min-height:40vh;
+      background-color: #0E86D4;
+      background: #0E86D4;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 50px rgba(0,0,0,0.15);
+      
+     
+    }
+
+    .form-row {
+      display: flex;
+      gap: 0px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1  145%;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      margin-top: 20px;
+      background:#000066;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      padding: 10px;
+    }
+
+    button:hover {
+      background: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Loader */
+    .loader {
+      display: none;
+      margin: 30px auto;
+      width: 60px;
+      height: 60px;
+      background: red;
+      position: relative;
+      transform: rotate(-45deg);
+      animation: pulse 1s infinite;
+    }
+    .loader::before, .loader::after {
+      content: "";
+      width: 60px;
+      height: 60px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+    }
+    .loader::before { top: -30px; left: 0; }
+    .loader::after { left: 30px; top: 0; }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1) rotate(-45deg); }
+      50% { transform: scale(1.2) rotate(-45deg); }
+    }
+
+    /* Result */
+    .result {
+      max-width: 100%;
+      margin: 50px auto;
+      padding: 70px;
+      border-radius: 12px;
+      font-size: 1.5em;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 2.0s ease;
+    }
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .success { background: #d4edda; color: #155724; }
+    .danger { background: #f8d7da; color: #721c24; }
+    .warning { background: #fff3cd; color: #856404; }
+
+    /* Circle progress */
+    .circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(#007bff 0deg, #ddd 0deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      font-size: 24px;
+      font-weight: bold;
+      color: #0F1E64;
+    }
+
+    /* Tips */
+    #tips {
+         background: url("/static/tips2.jpeg") no-repeat center center;
+        background-size:cover;
+  	grid-template-columns: repeat();
+ 	gap: 40px;
+  	max-width: 100%;
+  	margin: 0px auto;
+        padding: 60px 20px;
+        text-align: center;
+  }
+#tips h2 {
+  margin-bottom: 40px;
+  font-size: 2em;
+  color: #003060;
+  grid-column:span 4;
+}
+
+/* Grid container */
+.tips-container {
+  display: grid;
+  grid-template-columns: repeat(4 , 4fr); 
+  gap: 50px;
+  max-width: 100%;
+  margin: 10px; 
+}
+
+#tips .card {
+  background: white;
+  padding: 50px;
+  border-radius: 40px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.card i {
+  font-size: 40px;
+  margin-bottom: 15px;
+  color: #003060;
+}
+
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .form-row { flex-direction: row; }
+      #tips { flex-direction: row; }
+    }
+    .left-align{
+       text-align: left; 
+     }
+  </style>
+   <script>
+    function showLoader() {
+      document.getElementById("loader").style.display = "block";
+    }
+
+    window.onload = function () {
+      let resultCard = document.querySelector(".result");
+      if (resultCard) {
+        resultCard.classList.add("show");
+
+        let circle = document.getElementById("circle");
+        if (circle) {
+          let probability = parseInt(circle.dataset.value);
+          let angle = 0;
+          let interval = setInterval(() => {
+            if (angle >= probability * 3.6) clearInterval(interval);
+            else {
+              angle++;
+              circle.style.background = `conic-gradient(#007bff ${angle}deg, #ddd 0deg)`;
+              circle.textContent = Math.round(angle / 3.6) + "%";
+            }
+          }, 10);
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <nav>
+    <a href="/"> HOME </a>
+    <a href="/login"> LOGIN </a>
+    <a href="/contact">CONTACT</a>
+    {% if session.get('user') %}
+      <a href="/logout">LOGOUT ({{ session['user'] }})</a>
+    {% else %}
+      <a href="/login">LOGIN</a>
+    {% endif %}
+  </nav>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, msg in messages %}
+        <div class="flash {{ category }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</body>
+</html>
+

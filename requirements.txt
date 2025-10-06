@@ -1,0 +1,9 @@
+# Core
+Flask>=3.0,<4
+scikit-learn>=1.3,<2
+pandas>=2.1,<3
+numpy>=1.26,<3
+joblib>=1.3,<2
+gunicorn
+# Optional (uncomment for production serving on Linux)
+

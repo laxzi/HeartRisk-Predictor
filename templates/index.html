@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>HeartRisk Predictor</h1>
+
+<!-- Intro -->
+<section id="intro">
+  <h2>Welcome to HeartRisk Predictor</h2>
+  <p> 
+    <b>What is Heart Disease?</b><br><br>
+    Heart disease is a general term for conditions that affect your heart and blood vessels.<br>
+    The most common type is Coronary Artery Disease (CAD), where arteries get clogged with plaque.<br>
+    This blockage can lead to chest pain, a heart attack, or a stroke.<br>
+    Other types include heart failure and irregular heartbeats.<br><br><br>
+
+    <b>The Growing Risk</b><br><br>
+    Heart disease is on the rise and is the leading cause of death worldwide.<br>
+    This is mainly due to modern lifestyles.<br>
+    Key risk factors include:<br><br>
+
+    Unhealthy Habits: Poor diet, lack of exercise, smoking, and excessive alcohol.<br>
+    Chronic Conditions: High blood pressure, high cholesterol, diabetes, and obesity.<br>
+    Aging: The risk naturally increases with age.<br><br>
+
+    The good news is that many of these factors can be managed or prevented through healthy choices.
+  </p>
+</section>
+
+<!-- Form -->
+<section id="form-section">
+  <h2>Check Your Risk</h2>
+  <form method="POST" onsubmit="showLoader()">
+    <div class="form-row">
+      <div>
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+      </div>
+      <div>
+        <label for="sex">Sex:</label>
+        <select name="sex" id="sex" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="trestbps">Resting Blood Pressure:</label>
+        <input type="number" name="trestbps" id="trestbps" required>
+      </div>
+      <div>
+        <label for="chol">Cholesterol:</label>
+        <input type="number" name="chol" id="chol" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="thalch">Max Heart Rate Achieved:</label>
+        <input type="number" name="thalch" id="thalch" required>
+      </div>
+      <div>
+        <label for="oldpeak">Oldpeak:</label>
+        <input type="number" step="0.1" name="oldpeak" id="oldpeak" required>
+      </div>
+    </div>
+
+    <label for="cp">Chest Pain Type:</label>
+    <select name="cp" id="cp" required>
+      <option value="typical angina">Typical Angina</option>
+      <option value="atypical angina">Atypical Angina</option>
+      <option value="non-anginal">Non-Anginal Pain</option>
+      <option value="asymptomatic">Asymptomatic</option>
+    </select>
+
+    <label for="fbs">Fasting Blood Sugar >120 mg/dl:</label>
+    <select name="fbs" id="fbs" required>
+      <option value="FALSE">False</option>
+      <option value="TRUE">True</option>
+    </select>
+
+    <label for="restecg">Resting ECG:</label>
+    <select name="restecg" id="restecg" required>
+      <option value="normal">Normal</option>
+      <option value="st-t abnormality">ST-T Wave Abnormality</option>
+      <option value="lv hypertrophy">Left Ventricular Hypertrophy</option>
+    </select>
+
+    <label for="exang">Exercise Induced Angina:</label>
+    <select name="exang" id="exang" required>
+      <option value="FALSE">No</option>
+      <option value="TRUE">Yes</option>
+    </select>
+
+    <label for="slope">Slope of Peak Exercise ST Segment:</label>
+    <select name="slope" id="slope" required>
+      <option value="upsloping">Upsloping</option>
+      <option value="flat">Flat</option>
+      <option value="downsloping">Downsloping</option>
+    </select>
+
+    <label for="thal">Thal:</label>
+    <select name="thal" id="thal" required>
+      <option value="normal">Normal</option>
+      <option value="fixed defect">Fixed Defect</option>
+      <option value="reversable defect">Reversible Defect</option>
+    </select>
+
+    <label for="ca">Major Vessels (ca):</label>
+    <select name="ca" id="ca" required>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+
+    <button type="submit">Predict</button>
+  </form>
+  <div id="loader" class="loader"></div>
+</section>
+
+<!-- Results -->
+{% if prediction %}
+<section id="result">
+  <div class="result 
+    {% if proba >= 60 %}danger
+    {% elif proba >= 40 %}warning
+    {% else %}success{% endif %}">
+    <div class="circle" id="circle" data-value="{{ proba | round(0) }}">0%</div>
+    <p><strong>Prediction:</strong> {{ prediction }}</p>
+    <p><strong>Probability:</strong> {{ proba | round(2) }}%</p>
+  </div>
+</section>
+{% elif error %}
+<section id="result">
+  <div class="result danger show">
+    <p><strong>Error:</strong> {{ error }}</p>
+  </div>
+</section>
+{% endif %}
+
+<!-- Tips -->
+<section id="tips">
+  <h2>Tips to Keep Your Heart Healthy</h2>
+  <div class="tips-container">
+    <div class="card" style="background:#FFF3CD;">
+      <i class="fas fa-apple-alt"></i>
+      <h3>Maintain Healthy Diet</h3>
+      <p>Eat fruits, vegetables, whole grains, and lean proteins to protect your heart.</p>
+    </div>
+    <div class="card" style="background:#D4EDDA;">
+      <i class="fas fa-dumbbell"></i>
+      <h3>Exercise Regularly</h3>
+      <p>30 minutes of moderate exercise daily strengthens your heart.</p>
+    </div>
+    <div class="card" style="background:#F8D7DA;">
+      <i class="fas fa-smoking-ban"></i>
+      <h3>Avoid Smoking</h3>
+      <p>Smoking significantly increases heart disease risk.</p>
+    </div>
+    <div class="card" style="background:#E3F2FD;">
+      <i class="fas fa-user-md"></i>
+      <h3>Regular Checkups</h3>
+      <p>Monitor blood pressure, cholesterol, and heart health regularly.</p>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+

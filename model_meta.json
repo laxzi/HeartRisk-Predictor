@@ -1,0 +1,56 @@
+{
+  "categorical_cols": [
+    "sex",
+    "cp",
+    "fbs",
+    "restecg",
+    "exang",
+    "slope",
+    "thal"
+  ],
+  "numeric_cols": [
+    "age",
+    "trestbps",
+    "chol",
+    "thalch",
+    "ca",
+    "oldpeak"
+  ],
+  "target_col": "target",
+  "accuracy": 0.8478260869565217,
+  "mappings": {
+    "sex": {
+      "male": 1,
+      "female": 0
+    },
+    "cp": {
+      "typical angina": 0,
+      "atypical angina": 1,
+      "non-anginal": 2,
+      "asymptomatic": 3
+    },
+    "fbs": {
+      "true": 1,
+      "false": 0
+    },
+    "restecg": {
+      "normal": 0,
+      "lv hypertrophy": 1,
+      "st-t abnormality": 2
+    },
+    "exang": {
+      "true": 1,
+      "false": 0
+    },
+    "slope": {
+      "upsloping": 0,
+      "flat": 1,
+      "downsloping": 2
+    },
+    "thal": {
+      "normal": 0,
+      "fixed defect": 1,
+      "reversable defect": 2
+    }
+  }
+}
